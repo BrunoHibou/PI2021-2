@@ -1,46 +1,47 @@
 from tkinter import *
 
+
 def disney():
     print("ata")
-#cria a janela
+
+
+# cria a janela
 window = Tk()
 window.title("Processador de Imagens")
 
-#Parte referente aos botòes de Transformações Aritméticas
+# Parte referente aos botòes de Transformações Aritméticas
 ari = Label(window, text="Transformações Aritméticas")
 ari.grid(column=0, row=0, padx=10, pady=10)
 
 button1 = Button(window, text="Adittion", command=lambda: print("add"))
-button1.grid(column=0, row=1,padx = 10, sticky=N+S+W+E)
+button1.grid(column=0, row=1, padx=10, sticky=N + S + W + E)
 button1.anchor(NW)
 
-button2 = Button(window, text="Subtraction", command=lambda: print("sub") )
-button2.grid(column=0, row=2,padx = 10, sticky=N+S+W+E)
+button2 = Button(window, text="Subtraction", command=lambda: print("sub"))
+button2.grid(column=0, row=2, padx=10, sticky=N + S + W + E)
 
 button3 = Button(window, text="Multiplication", command=lambda: print("mult"))
-button3.grid(column=0, row=3,padx = 10, sticky=N+S+W+E)
+button3.grid(column=0, row=3, padx=10, sticky=N + S + W + E)
 
 button4 = Button(window, text="Division", command=lambda: print("div"))
-button4.grid(column=0, row=4,padx = 10, sticky=N+S+W+E)
+button4.grid(column=0, row=4, padx=10, sticky=N + S + W + E)
 
-#Parte referente aos botòes de Transformações Geométricas
+# Parte referente aos botòes de Transformações Geométricas
 
 geom = Label(window, text="Transformações Geométricas")
-geom.grid(column=0, row=5,padx = 10, pady=10, sticky=N+S+W+E )
+geom.grid(column=0, row=5, padx=10, pady=10, sticky=N + S + W + E)
 
 button5 = Button(window, text="Translação", command=lambda: print("add"))
-button5.grid(column=0, row=6, padx=10, sticky=N+S+W+E)
+button5.grid(column=0, row=6, padx=10, sticky=N + S + W + E)
 button5.anchor(NW)
 
 button6 = Button(window, text="Rotação", command=lambda: print("div"))
-button6.grid(column=0, row=7, padx=10, sticky=N+S+W+E)
+button6.grid(column=0, row=7, padx=10, sticky=N + S + W + E)
 
-button7 = Button(window, text="Escala", command=lambda: print("sub2") )
-button7.grid(column=0, row=9, padx = 10, sticky=N+S+W+E)
+button7 = Button(window, text="Escala", command=lambda: print("sub2"))
+button7.grid(column=0, row=9, padx=10, sticky=N + S + W + E)
 
 button8 = Button(window, text="Reflexão", command=lambda: print("mult2"))
-button8.grid(column=0, row=10, padx = 10, sticky=N+S+W+E)
-
-
+button8.grid(column=0, row=10, padx=10, sticky=N + S + W + E)
 
 window.mainloop()
