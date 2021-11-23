@@ -1,8 +1,9 @@
 from tkinter import *
-
+import matplotlib.image as img
+image = img.imread("imagens/Sem título.png")
 
 def disney():
-    print("ata")
+    print(image)
 
 
 # cria a janela
@@ -13,7 +14,7 @@ window.title("Processador de Imagens")
 ari = Label(window, text="Transformações Aritméticas")
 ari.grid(column=0, row=0, padx=10, pady=10)
 
-button1 = Button(window, text="Adittion", command=lambda: print("add"))
+button1 = Button(window, text="Adittion", command=lambda: disney())
 button1.grid(column=0, row=1, padx=10, sticky=N + S + W + E)
 button1.anchor(NW)
 
