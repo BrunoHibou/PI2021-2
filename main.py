@@ -1,5 +1,7 @@
 from tkinter import *
-import module_interface
+from module_interface import mainWindow
 
 def disney():
     print("ata")
+
+mainWindow()
