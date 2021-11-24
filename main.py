@@ -1,7 +1,7 @@
 from tkinter import *
 from module_interface import mainWindow
+import matplotlib.image as img
 
-def disney():
-    print("ata")
 
-mainWindow()
+if __name__ == "__main__":
+  mainWindow()
