@@ -7,7 +7,7 @@ class PI:
 
     def image_to_matrix(self, img):
 
-        image = pimg.open(img)
+        image = pimg.open(img).convert("L")
 
         matriz_pixel = list()
         linha_pixel = list()
@@ -19,19 +19,20 @@ class PI:
             linha_pixel = list()
             # Percorre a linha da imagem
             for y in range(image.width):
-                pixel = image.getpixel((x,y))   # recebe o pixel na coordenada 
-                linha_pixel.append(pixel)    # adiciona o pixel ao array linha
+                pixel = image.getpixel((y, x))  # recebe o pixel na coordenada
+                linha_pixel.append(pixel)  # adiciona o pixel ao array linha
             # adiciona a linha de pixels ao array
-            matriz_pixel.append(linha_pixel)    
-        
-        ## IMPRIMINDO ARRAY COM VALORES DE PIXEL
+            matriz_pixel.append(linha_pixel)
+
+            ## IMPRIMINDO ARRAY COM VALORES DE PIXEL
         file = open('log.txt', 'w')
         for i in range(len(matriz_pixel[0])):
             file.write(f'{matriz_pixel[i]}\n')
         file.close()
 
         ## RETORNANDO O ARRAY COM VALORES DE PIXELS
-        return matriz_pixel
+        print(matriz_pixel[0][0])
+        return np.asarray(matriz_pixel)
 
     # função que realiza a adição entre uma imagem A e uma imagem B
     def addition(self, image1, image2):
@@ -56,7 +57,10 @@ class PI:
         result = image1
         for index in range(len(image1)):
             for index2 in range(len(image1[index])):
-                result[index][index2] = (image1[index][index2]) * (image2[index][index2])
+                a = image1[index][index2] / 255
+                b = image2[index][index2] / 255
+                total = a * b
+                result[index][index2] = total * 255
 
         return result
 
@@ -65,22 +69,35 @@ class PI:
         result = image1
         for index in range(len(image1)):
             for index2 in range(len(image1[index])):
-                result[index][index2] = image1[index][index2] / image2[index][index2]
+                a = image1[index][index2] * 255
+                b = image2[index][index2] * 255
+                total = a / b
+                result[index][index2] = total * 255
 
         return result
+
+    def translate(self):
+        pass
+
+    def rotate(self):
+        pass
+
+    def scale(self):
+        pass
+
+    def reflect(self):
+        pass
 
 
 if __name__ == "__main__":
     pi = PI()
 
-
-    image1 = "./imagens/lena.png"
-    image2 = "./imagens/lenainverted.png"
-
+    image1 = "imagens/lena.png"
+    image2 = "imagens/lenainverted.png"
 
     image1 = pi.image_to_matrix(image1)
 
     image2 = pi.image_to_matrix(image2)
 
-    image3 = pimg.fromarray(pi.multiplication(image1, image2))
-    # image3.show()
+    image3 = pimg.fromarray(pi.division(image1, image2))
+    image3.show()
