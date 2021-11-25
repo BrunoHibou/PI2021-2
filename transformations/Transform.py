@@ -6,10 +6,32 @@ import PIL.Image as pimg
 class PI:
 
     def image_to_matrix(self, img):
-        image = pimg.open(img).convert("L")
-        image_array = np.matrix(image)
-        image_array = np.squeeze(image_array)
-        return image_array
+
+        image = pimg.open(img)
+
+        matriz_pixel = list()
+        linha_pixel = list()
+
+        ## PERCORRENDO O ARRAY DA IMAGEM
+        # Percorre a altura da imagem 
+        for x in range(image.height):
+            # Zera o array de linha de pixels
+            linha_pixel = list()
+            # Percorre a linha da imagem
+            for y in range(image.width):
+                pixel = image.getpixel((x,y))   # recebe o pixel na coordenada 
+                linha_pixel.append(pixel)    # adiciona o pixel ao array linha
+            # adiciona a linha de pixels ao array
+            matriz_pixel.append(linha_pixel)    
+        
+        ## IMPRIMINDO ARRAY COM VALORES DE PIXEL
+        file = open('log.txt', 'w')
+        for i in range(len(matriz_pixel[0])):
+            file.write(f'{matriz_pixel[i]}\n')
+        file.close()
+
+        ## RETORNANDO O ARRAY COM VALORES DE PIXELS
+        return matriz_pixel
 
     # função que realiza a adição entre uma imagem A e uma imagem B
     def addition(self, image1, image2):
@@ -51,8 +73,10 @@ class PI:
 if __name__ == "__main__":
     pi = PI()
 
-    image1 = "../imagens/lena.png"
-    image2 = "../imagens/lenainverted.png"
+
+    image1 = "./imagens/lena.png"
+    image2 = "./imagens/lenainverted.png"
+
 
     image1 = pi.image_to_matrix(image1)
 
@@ -60,4 +84,5 @@ if __name__ == "__main__":
 
     image3 = pimg.fromarray(pi.multiplication(image1, image2))
     image3.show()
+
 
