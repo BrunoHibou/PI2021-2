@@ -6,6 +6,7 @@ import PIL.Image as pimg
 class PI:
 
     def image_to_matrix(self, img):
+
         image = pimg.open(img)
 
         matriz_pixel = list()
@@ -72,13 +73,16 @@ class PI:
 if __name__ == "__main__":
     pi = PI()
 
+
     image1 = "./imagens/lena.png"
     image2 = "./imagens/lenainverted.png"
+
 
     image1 = pi.image_to_matrix(image1)
 
     image2 = pi.image_to_matrix(image2)
 
-    # image3 = pimg.fromarray(pi.multiplication(image1, image2))
-    # image3.show()
+    image3 = pimg.fromarray(pi.multiplication(image1, image2))
+    image3.show()
+
 
