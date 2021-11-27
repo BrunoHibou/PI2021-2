@@ -1,3 +1,4 @@
+import numpy
 import numpy as np
 import PIL.Image as pimg
 
@@ -85,8 +86,24 @@ class PI:
     def scale(self):
         pass
 
-    def reflect(self):
-        pass
+    def reflect(self, image1, pixels, row, column):
+        b = 0
+        a = 0
+        result = image1
+        for index in range(row):
+            for index2 in range(column):
+                #a = self.getnewposition(index, a, row)
+                b = self.getnewposition(index2, b, column)
+                result[index][b] = pixels[index][index2]
+        return result
+
+    def getnewposition(self, j, b, column):
+        b = column - j - 1
+        return b
+
+    def get_pixels(self, image1):
+        pixels = numpy.asarray(image1)
+        return pixels
 
 
 if __name__ == "__main__":
@@ -96,8 +113,11 @@ if __name__ == "__main__":
     image2 = "imagens/lenainverted.png"
 
     image1 = pi.image_to_matrix(image1)
+    pixels = pi.get_pixels(image1)
+    row = len(pixels)
+    column = len(pixels[0])
 
     image2 = pi.image_to_matrix(image2)
 
-    image3 = pimg.fromarray(pi.division(image1, image2))
+    image3 = pimg.fromarray(pi.reflect(image1, image1, row, column))
     image3.show()
