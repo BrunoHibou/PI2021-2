@@ -1,5 +1,6 @@
 import numpy
 import numpy as np
+import cv2
 import PIL.Image as pimg
 
 
@@ -77,20 +78,48 @@ class PI:
 
         return result
 
-    def translate(self):
-        pass
+    def translate(self, image1):
+        imgOriginal = cv2.imread(image1)
+        totalLinhas, totalColunas = imgOriginal.shape[:2]
+        res = cv2.resize(imgOriginal, None, fx=1, fy=1, interpolation=cv2.INTER_CUBIC)
 
-    def rotate(self):
-        pass
+        matriz = np.float32([[1, 0, 100], [0, 1, 100]])
 
-    def scale(self):
-        pass
+        imgDeslocada = cv2.warpAffine(res, matriz, (totalColunas, totalLinhas))
+
+        cv2.imshow("Imagem original", imgOriginal)
+        cv2.imshow("Imagem Deslocada", imgDeslocada)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+    def rotate(self, image1):
+        imgOriginal = cv2.imread(image1)
+        res = cv2.resize(imgOriginal, None, fx=1, fy=1, interpolation=cv2.INTER_CUBIC)
+
+        totalLinhas, totalColunas, x = res.shape
+
+        matriz = cv2.getRotationMatrix2D((totalColunas / 2, totalLinhas / 2), 90, 1)
+
+        imgRotacionada = cv2.warpAffine(res, matriz, (totalColunas, totalLinhas))
+
+        cv2.imshow("Imagem original", imgOriginal)
+        cv2.imshow("Imagem rotacionada 90", imgRotacionada)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+    def scale(self, image1):
+        imgOriginal = cv2.imread(image1)
+
+        imgModificada = cv2.resize(imgOriginal, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_CUBIC)
+
+        cv2.imshow("Imagem original", imgOriginal)
+        cv2.imshow("Imagem modificada", imgModificada)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
 
     def reflect(self, image1, pixels, row, column):
         b = 0
         a = 0
         result = image1
-        #row e column são a mesma coisa que len(image1)
         for index in range(row):
             for index2 in range(column):
                 b = self.getnewposition(index2, b, column)
@@ -111,6 +140,11 @@ if __name__ == "__main__":
 
     image1 = "imagens/lena.png"
     image2 = "imagens/lenainverted.png"
+    #DESCOMENTE UMA DAS 3 FUNÇÕES ABAIXO PARA QUE ELA SEJA EXECUTADA
+
+    #pi.translate(image1)
+    #pi.scale(image1)
+    #pi.rotate(image1)
 
     image1 = pi.image_to_matrix(image1)
     pixels = pi.get_pixels(image1)
@@ -120,4 +154,5 @@ if __name__ == "__main__":
     image2 = pi.image_to_matrix(image2)
 
     image3 = pimg.fromarray(pi.reflect(image1, image1, row, column))
+
     image3.show()
