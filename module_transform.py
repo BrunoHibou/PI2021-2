@@ -90,6 +90,7 @@ class PI:
         b = 0
         a = 0
         result = image1
+        #row e column são a mesma coisa que len(image1)
         for index in range(row):
             for index2 in range(column):
                 b = self.getnewposition(index2, b, column)
