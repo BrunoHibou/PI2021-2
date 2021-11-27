@@ -92,7 +92,6 @@ class PI:
         result = image1
         for index in range(row):
             for index2 in range(column):
-                #a = self.getnewposition(index, a, row)
                 b = self.getnewposition(index2, b, column)
                 result[index][b] = pixels[index][index2]
         return result
