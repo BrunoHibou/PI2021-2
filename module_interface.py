@@ -6,9 +6,9 @@ import module_transform as transform
 
 class mainWindow():
 
-
-
     def __init__(self):
+        pi = transform.PI()
+
         # cria a janela
         window = Tk()
         window.title("Processador de Imagens")
@@ -33,7 +33,8 @@ class mainWindow():
         path2.grid(column=0, row=2, padx=10, sticky=N + S + W + E)
 
         # Botão de Abrir as duas imagens
-        button1 = Button(window, text="Abrir Imagens", command=lambda: self.set_image(root=window, text_field=path1,text_field2= path2))
+        button1 = Button(window, text="Abrir Imagens",
+                         command=lambda: self.set_image(root=window, text_field=path1, text_field2=path2))
         button1.grid(column=0, row=3, padx=10, sticky=N + S + W + E)
         button1.anchor(NW)
 
@@ -42,20 +43,29 @@ class mainWindow():
         ari.grid(column=0, row=4, padx=10, pady=10)
 
         # Adição
-        button1 = Button(window, text="Adittion", command=lambda: transform.addition())
+        button1 = Button(window, text="Adittion",
+                         command=lambda: pi.addition(pi.image_to_matrix("./imagens/" + path1.get("1.0", "end-1c")),
+                                                     pi.image_to_matrix("./imagens/" + path2.get("1.0", "end-1c")),
+                                                     window))
         button1.grid(column=0, row=5, padx=10, sticky=N + S + W + E)
         button1.anchor(NW)
 
         # Sugtração
-        button2 = Button(window, text="Subtraction", command=lambda: print("sub"))
+        button2 = Button(window, text="Subtraction", command=lambda: pi.subtraction(pi.image_to_matrix("./imagens/" + path1.get("1.0", "end-1c")),
+                                                     pi.image_to_matrix("./imagens/" + path2.get("1.0", "end-1c")),
+                                                     window))
         button2.grid(column=0, row=6, padx=10, sticky=N + S + W + E)
 
         # Multiplicação
-        button3 = Button(window, text="Multiplication", command=lambda: print("mult"))
+        button3 = Button(window, text="Multiplication", command=lambda: pi.multiplication(pi.image_to_matrix("./imagens/" + path1.get("1.0", "end-1c")),
+                                                     pi.image_to_matrix("./imagens/" + path2.get("1.0", "end-1c")),
+                                                     window))
         button3.grid(column=0, row=7, padx=10, sticky=N + S + W + E)
 
         # Divisão
-        button4 = Button(window, text="Division", command=lambda: print("div"))
+        button4 = Button(window, text="Division", command=lambda:pi.division(pi.image_to_matrix("./imagens/" + path1.get("1.0", "end-1c")),
+                                                     pi.image_to_matrix("./imagens/" + path2.get("1.0", "end-1c")),
+                                                     window))
         button4.grid(column=0, row=8, padx=10, sticky=N + S + W + E)
 
         # Parte referente aos botòes de Transformações Geométricas
@@ -82,17 +92,17 @@ class mainWindow():
         # image Labels
         window.mainloop()
 
-    def set_image(self,root,text_field, text_field2 ):
-        image = Image.open("./imagens/"+text_field.get("1.0", "end-1c"))
+    def set_image(self, root, text_field, text_field2):
+        image = Image.open("./imagens/" + text_field.get("1.0", "end-1c"))
         photo = ImageTk.PhotoImage(image)
 
-        image = Image.open("./imagens/"+text_field2.get("1.0", "end-1c"))
+        image = Image.open("./imagens/" + text_field2.get("1.0", "end-1c"))
         photo2 = ImageTk.PhotoImage(image)
 
         label = Label(root, image=photo)
         label.image = photo
-        label.grid(row=0,column=1, rowspan = 14)
+        label.grid(row=0, column=1, rowspan=13)
 
         label2 = Label(root, image=photo2)
         label2.image = photo2
-        label2.grid(row=0,column=2, rowspan=14)
+        label2.grid(row=0, column=2, rowspan=13)

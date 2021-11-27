@@ -1,8 +1,11 @@
-import numpy as np
+import tkinter as Tk
+
 import PIL.Image as pimg
-
-
+import numpy as np
 # módulo referente às transformações
+from PIL import ImageTk
+
+
 class PI:
 
     def image_to_matrix(self, img):
@@ -35,25 +38,37 @@ class PI:
         return np.asarray(matriz_pixel)
 
     # função que realiza a adição entre uma imagem A e uma imagem B
-    def addition(self, image1, image2):
+    def addition(self, image1, image2, root):
+
         result = image1
         for index in range(len(image1)):
             for index2 in range(len(image1[index])):
                 result[index][index2] = image1[index][index2] + image2[index][index2]
 
-        return result
+        result = pimg.fromarray(result)
+        result = ImageTk.PhotoImage(result)
+
+        label = Tk.Label(root, image=result)
+        label.image = result
+        label.grid(row=0, column=3, rowspan=13)
 
     # função que realiza a subtração entre uma imagem A e uma imagem B
-    def subtraction(self, image1, image2):
+    def subtraction(self, image1, image2, root):
         result = image1
         for index in range(len(image1)):
             for index2 in range(len(image1[index])):
                 result[index][index2] = image1[index][index2] - image2[index][index2]
 
-        return result
+        print(result)
+        result = pimg.fromarray(result)
+        result = ImageTk.PhotoImage(result)
+
+        label = Tk.Label(root, image=result)
+        label.image = result
+        label.grid(row=0, column=3, rowspan=13)
 
     # função que realiza a multiplicação entre uma imagem A e uma imagem B
-    def multiplication(self, image1, image2):
+    def multiplication(self, image1, image2, root):
         result = image1
         for index in range(len(image1)):
             for index2 in range(len(image1[index])):
@@ -62,10 +77,17 @@ class PI:
                 total = a * b
                 result[index][index2] = total * 255
 
-        return result
+        print(result)
+        result = pimg.fromarray(result)
+        result = ImageTk.PhotoImage(result)
+
+        label = Tk.Label(root, image=result)
+        label.image = result
+        label.grid(row=0, column=3, rowspan=13)
 
     # função que realiza a divisão entre uma imagem A e uma imagem B
-    def division(self, image1, image2):
+    def division(self, image1, image2, root):
+
         result = image1
         for index in range(len(image1)):
             for index2 in range(len(image1[index])):
@@ -74,7 +96,12 @@ class PI:
                 total = a / b
                 result[index][index2] = total * 255
 
-        return result
+        result = pimg.fromarray(result)
+        result = ImageTk.PhotoImage(result)
+
+        label = Tk.Label(root, image=result)
+        label.image = result
+        label.grid(row=0, column=3, rowspan=13)
 
     def translate(self):
         pass
@@ -99,5 +126,5 @@ if __name__ == "__main__":
 
     image2 = pi.image_to_matrix(image2)
 
-    image3 = pimg.fromarray(pi.division(image1, image2))
+    image3 = pimg.fromarray(pi.addition(image1, image2))
     image3.show()
