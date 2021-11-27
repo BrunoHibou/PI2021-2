@@ -176,10 +176,9 @@ if __name__ == "__main__":
 
     image1 = "imagens/lena.png"
     image2 = "imagens/lenainverted.png"
+    #DESCOMENTE UMA DAS 3 FUNÇÕES ABAIXO PARA QUE ELA SEJA EXECUTADA
 
-    image1 = pi.image_to_matrix(image1)
-
-    image2 = pi.image_to_matrix(image2)
-
-    image3 = pimg.fromarray(pi.addition(image1, image2))
-    image3.show()
+    #pi.translate(image1)
+    #pi.scale(image1)
+    #pi.rotate(image1)
+    pi.reflect(image1)
