@@ -2,6 +2,7 @@ import numpy
 import numpy as np
 import cv2
 import PIL.Image as pimg
+import matplotlib.pyplot as plt
 
 
 # módulo referente às transformações
@@ -116,23 +117,20 @@ class PI:
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
-    def reflect(self, image1, pixels, row, column):
-        b = 0
-        a = 0
-        result = image1
-        for index in range(row):
-            for index2 in range(column):
-                b = self.getnewposition(index2, b, column)
-                result[index][b] = pixels[index][index2]
-        return result
+    def reflect(self, image1):
+        imgOriginal = cv2.imread(image1)
+        res = cv2.resize(imgOriginal, None, fx=1, fy=1, interpolation=cv2.INTER_CUBIC)
 
-    def getnewposition(self, j, b, column):
-        b = column - j - 1
-        return b
+        totalLinhas, totalColunas, x = res.shape
 
-    def get_pixels(self, image1):
-        pixels = numpy.asarray(image1)
-        return pixels
+        imageReflect = cv2.flip(imgOriginal, 1)
+
+
+
+        cv2.imshow("Imagem original", imgOriginal)
+        cv2.imshow("Imagem rotacionada 90", imageReflect)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
 
 
 if __name__ == "__main__":
@@ -145,14 +143,6 @@ if __name__ == "__main__":
     #pi.translate(image1)
     #pi.scale(image1)
     #pi.rotate(image1)
+    pi.reflect(image1)
 
-    image1 = pi.image_to_matrix(image1)
-    pixels = pi.get_pixels(image1)
-    row = len(pixels)
-    column = len(pixels[0])
 
-    image2 = pi.image_to_matrix(image2)
-
-    image3 = pimg.fromarray(pi.reflect(image1, image1, row, column))
-
-    image3.show()
