@@ -33,6 +33,7 @@ class mainWindow():
         path2.grid(column=0, row=2, padx=10, sticky=N + S + W + E)
 
         # Botão de Abrir as duas imagens
+
         button1 = Button(window, text="Abrir Imagens",
                          command=lambda: self.set_image(root=window, text_field=path1, text_field2=path2))
         button1.grid(column=0, row=3, padx=10, sticky=N + S + W + E)
@@ -72,6 +73,7 @@ class mainWindow():
         geom = Label(window, text="Transformações Geométricas")
         geom.grid(column=0, row=9, padx=10, pady=10, sticky=N + S + W + E)
 
+
         # Translação
         button5 = Button(window, text="Translação", command=lambda: print("add"))
         button5.grid(column=0, row=10, padx=10, sticky=N + S + W + E)
@@ -93,16 +95,18 @@ class mainWindow():
         window.mainloop()
 
     def set_image(self, root, text_field, text_field2):
+
         image = Image.open("./imagens/" + text_field.get("1.0", "end-1c"))
         photo = ImageTk.PhotoImage(image)
-
-        image = Image.open("./imagens/" + text_field2.get("1.0", "end-1c"))
-        photo2 = ImageTk.PhotoImage(image)
 
         label = Label(root, image=photo)
         label.image = photo
         label.grid(row=0, column=1, rowspan=13)
 
-        label2 = Label(root, image=photo2)
-        label2.image = photo2
-        label2.grid(row=0, column=2, rowspan=13)
+        if text_field2 is not None:
+            image = Image.open("./imagens/" + text_field2.get("1.0", "end-1c"))
+            photo2 = ImageTk.PhotoImage(image)
+
+            label2 = Label(root, image=photo2)
+            label2.image = photo2
+            label2.grid(row=0, column=2, rowspan=13)

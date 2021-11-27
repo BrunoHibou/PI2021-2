@@ -1,7 +1,8 @@
 import tkinter as Tk
 
-import PIL.Image as pimg
 import numpy as np
+import cv2
+import PIL.Image as pimg
 # módulo referente às transformações
 from PIL import ImageTk
 
@@ -119,17 +120,55 @@ class PI:
         label.image = result
         label.grid(row=0, column=3, rowspan=13)
 
-    def translate(self):
-        pass
+    def translate(self, image1):
+        imgOriginal = cv2.imread(image1)
+        totalLinhas, totalColunas = imgOriginal.shape[:2]
+        res = cv2.resize(imgOriginal, None, fx=1, fy=1, interpolation=cv2.INTER_CUBIC)
 
-    def rotate(self):
-        pass
+        matriz = np.float32([[1, 0, 100], [0, 1, 100]])
 
-    def scale(self):
-        pass
+        imgDeslocada = cv2.warpAffine(res, matriz, (totalColunas, totalLinhas))
 
-    def reflect(self):
-        pass
+        cv2.imshow("Imagem original", imgOriginal)
+        cv2.imshow("Imagem Deslocada", imgDeslocada)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+    def rotate(self, image1, angle):
+        imgOriginal = cv2.imread(image1)
+        res = cv2.resize(imgOriginal, None, fx=1, fy=1, interpolation=cv2.INTER_CUBIC)
+
+        totalLinhas, totalColunas, x = res.shape
+
+        matriz = cv2.getRotationMatrix2D((totalColunas / 2, totalLinhas / 2), angle, 1)
+
+        imgRotacionada = cv2.warpAffine(res, matriz, (totalColunas, totalLinhas))
+
+        cv2.imshow("Imagem original", imgOriginal)
+        cv2.imshow("Imagem rotacionada 90", imgRotacionada)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+    def scale(self, image1):
+        imgOriginal = cv2.imread(image1)
+
+        img_modificada = cv2.resize(imgOriginal, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_CUBIC)
+
+        cv2.imshow("Imagem original", imgOriginal)
+        cv2.imshow("Imagem modificada", img_modificada)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+    def reflect(self, image1):
+        imgOriginal = cv2.imread(image1)
+        res = cv2.resize(imgOriginal, None, fx=1, fy=1, interpolation=cv2.INTER_CUBIC)
+
+        imageReflect = cv2.flip(imgOriginal, 1)
+
+        cv2.imshow("Imagem original", imgOriginal)
+        cv2.imshow("Imagem rotacionada 90", imageReflect)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
 
 
 if __name__ == "__main__":
