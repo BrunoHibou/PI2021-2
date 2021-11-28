@@ -93,7 +93,7 @@ class mainWindow():
 
         # Reflexão
         button8 = Button(window, text="Reflexão",
-                         command=lambda: pi.reflect(pi.image_to_matrix("./imagens/" + path1.get("1.0", "end-1c")), "x",
+                         command=lambda: pi.reflect(pi.image_to_matrix("./imagens/" + path1.get("1.0", "end-1c")), "y",
                                                     window))
         button8.grid(column=0, row=13, padx=10, sticky=N + S + W + E)
 

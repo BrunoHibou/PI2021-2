@@ -163,12 +163,16 @@ class PI:
 
         result = []
         aux = image
+
+        #Caso axis = x realizamos a operação ao redor do eixo x
         if axis == "x":
-            #result = np.flip(image)
+            #Percorremos cada lista de linhas dentro de imagem de trás pra frente invertendo as listas e portanto a imagem
             for p in range(len(aux)-1, -1, -1):
                 result.append(aux[p])
 
+        #Caso axis = y realizamos a operação ao redor do eixo y
         if axis == "y":
+            #percorrer a imagem invertendo a ordem das colunas e na imagem
             for p in image:
                 p = np.flip(p)
                 result.append(p)
