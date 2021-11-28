@@ -1,12 +1,13 @@
 import tkinter as Tk
-
-import numpy as np
-import cv2
-import PIL.Image as pimg
-# módulo referente às transformações
 from PIL import ImageTk
+import numpy as np
+import cv2 as cv2
+import PIL.Image as pimg
+import matplotlib.pyplot as plt
 
 
+
+# módulo referente às transformações
 class PI:
 
     def image_to_matrix(self, img):
@@ -39,86 +40,45 @@ class PI:
         return np.asarray(matriz_pixel)
 
     # função que realiza a adição entre uma imagem A e uma imagem B
-    def addition(self, image1, image2, root):
-
+    def addition(self, image1, image2):
         result = image1
-        #percorre cada celula das matrizes dasimagens e, para cada par de pixels, realiza a soma entre eles.
         for index in range(len(image1)):
             for index2 in range(len(image1[index])):
-
                 result[index][index2] = image1[index][index2] + image2[index][index2]
 
-        #converte a matriz resultante resultado em uma imagem
-        result = pimg.fromarray(result)
-
-        #converte a imagem em uma PhotoImage da biblioteca ImageTK
-        result = ImageTk.PhotoImage(result)
-
-        #Adiciona a imagem na grid da interface
-        label = Tk.Label(root, image=result)
-        label.image = result
-        label.grid(row=0, column=3, rowspan=13)
+        return result
 
     # função que realiza a subtração entre uma imagem A e uma imagem B
-    def subtraction(self, image1, image2, root):
+    def subtraction(self, image1, image2):
         result = image1
-        # percorre cada celula das matrizes dasimagens e, para cada par de pixels, realiza a subtração entre eles.
         for index in range(len(image1)):
             for index2 in range(len(image1[index])):
                 result[index][index2] = image1[index][index2] - image2[index][index2]
 
-        # converte a matriz resultante resultado em uma imagem
-        result = pimg.fromarray(result)
-
-        # converte a imagem em uma PhotoImage da biblioteca ImageTK
-        result = ImageTk.PhotoImage(result)
-
-        # Adiciona a imagem na grid da interface
-        label = Tk.Label(root, image=result)
-        label.image = result
-        label.grid(row=0, column=3, rowspan=13)
+        return result
 
     # função que realiza a multiplicação entre uma imagem A e uma imagem B
-    def multiplication(self, image1, image2, root):
+    def multiplication(self, image1, image2):
         result = image1
-        # percorre cada celula das matrizes dasimagens e, para cada par de pixels, realiza a subtração entre eles.
         for index in range(len(image1)):
             for index2 in range(len(image1[index])):
-                #Aqui os valores são normalizados de forma a, no final, encontrar um valor entre 1 e 255. Caso não seja feita a divisão
-                # a grande maioria das transformações retornariam uma imagem completamente branca.
                 a = image1[index][index2] / 255
                 b = image2[index][index2] / 255
                 total = a * b
                 result[index][index2] = total * 255
-        # converte a imagem em uma PhotoImage da biblioteca ImageTK
-        result = pimg.fromarray(result)
-        # converte a imagem em uma PhotoImage da biblioteca ImageTK
-        result = ImageTk.PhotoImage(result)
-        # Adiciona a imagem na grid da interface
-        label = Tk.Label(root, image=result)
-        label.image = result
-        label.grid(row=0, column=3, rowspan=13)
+
+        return result
 
     # função que realiza a divisão entre uma imagem A e uma imagem B
-    def division(self, image1, image2, root):
-
+    def division(self, image1, image2):
         result = image1
         for index in range(len(image1)):
             for index2 in range(len(image1[index])):
-                # Aqui os valores são normalizados de forma a, no final, encontrar um valor entre 1 e 255. Caso não seja feita a divisão
-                # a grande maioria das transformações retornariam uma imagem errônea
                 a = image1[index][index2] * 255
                 b = image2[index][index2] * 255
                 total = a / b
                 result[index][index2] = total * 255
-        # converte a imagem em uma PhotoImage da biblioteca ImageTK
-        result = pimg.fromarray(result)
-        # converte a imagem em uma PhotoImage da biblioteca ImageTK
-        result = ImageTk.PhotoImage(result)
-        # Adiciona a imagem na grid da interface
-        label = Tk.Label(root, image=result)
-        label.image = result
-        label.grid(row=0, column=3, rowspan=13)
+
 
     def translate(self, image1):
         imgOriginal = cv2.imread(image1)
@@ -134,13 +94,41 @@ class PI:
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
-    def rotate(self, image1, angle):
+
+    def rotate(self, image1):
         imgOriginal = cv2.imread(image1)
         res = cv2.resize(imgOriginal, None, fx=1, fy=1, interpolation=cv2.INTER_CUBIC)
 
         totalLinhas, totalColunas, x = res.shape
 
-        matriz = cv2.getRotationMatrix2D((totalColunas / 2, totalLinhas / 2), angle, 1)
+        matriz = cv2.getRotationMatrix2D((totalColunas / 2, totalLinhas / 2), 90, 1)
+
+        imgRotacionada = cv2.warpAffine(res, matriz, (totalColunas, totalLinhas))
+
+        cv2.imshow("Imagem original", imgOriginal)
+        cv2.imshow("Imagem rotacionada 90", imgRotacionada)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+    def scale(self, image1):
+        imgOriginal = cv2.imread(image1)
+
+        imgModificada = cv2.resize(imgOriginal, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_CUBIC)
+
+        cv2.imshow("Imagem original", imgOriginal)
+        cv2.imshow("Imagem modificada", imgModificada)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+    def reflect(self, image1):
+
+        imgOriginal = cv2.imread(image1)
+        res = cv2.resize(imgOriginal, None, fx=1, fy=1, interpolation=cv2.INTER_CUBIC)
+
+        totalLinhas, totalColunas, x = res.shape
+
+
+        matriz = cv2.getRotationMatrix2D((totalColunas / 2, totalLinhas / 2), 90, 1)
 
         imgRotacionada = cv2.warpAffine(res, matriz, (totalColunas, totalLinhas))
 
@@ -165,6 +153,11 @@ class PI:
 
         imageReflect = cv2.flip(imgOriginal, 1)
 
+
+        imageReflect = cv2.flip(imgOriginal, 1)
+
+
+
         cv2.imshow("Imagem original", imgOriginal)
         cv2.imshow("Imagem rotacionada 90", imageReflect)
         cv2.waitKey(0)
@@ -182,3 +175,4 @@ if __name__ == "__main__":
     #pi.scale(image1)
     #pi.rotate(image1)
     pi.reflect(image1)
+
