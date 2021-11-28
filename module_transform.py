@@ -159,16 +159,30 @@ class PI:
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
-    def reflect(self, image1):
-        imgOriginal = cv2.imread(image1)
-        res = cv2.resize(imgOriginal, None, fx=1, fy=1, interpolation=cv2.INTER_CUBIC)
+    def reflect(self, image, axis, root):
 
-        imageReflect = cv2.flip(imgOriginal, 1)
+        result = []
+        aux = image
+        if axis == "x":
+            #result = np.flip(image)
+            for p in range(len(aux)-1, -1, -1):
+                result.append(aux[p])
 
-        cv2.imshow("Imagem original", imgOriginal)
-        cv2.imshow("Imagem rotacionada 90", imageReflect)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        if axis == "y":
+            for p in image:
+                p = np.flip(p)
+                result.append(p)
+
+
+        result = np.asarray(result)
+        result = pimg.fromarray(result)
+        # converte a imagem em uma PhotoImage da biblioteca ImageTK
+        result = ImageTk.PhotoImage(result)
+        # Adiciona a imagem na grid da interface
+        label = Tk.Label(root, image=result)
+        label.image = result
+        label.grid(row=0, column=3, rowspan=13)
+
 
 
 if __name__ == "__main__":
