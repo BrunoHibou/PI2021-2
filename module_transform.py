@@ -1,5 +1,4 @@
 import tkinter as Tk
-
 import numpy as np
 import cv2
 import PIL.Image as pimg
@@ -9,9 +8,9 @@ from PIL import ImageTk
 
 class PI:
 
-    def image_to_matrix(self, img):
+    def image_to_matrix(self, img_filename):
 
-        image = pimg.open(img).convert("L")
+        image = pimg.open(img_filename).convert("L")
 
         matriz_pixel = list()
         linha_pixel = list()
@@ -35,7 +34,7 @@ class PI:
         file.close()
 
         ## RETORNANDO O ARRAY COM VALORES DE PIXELS
-        print(matriz_pixel[0][0])
+        # print(matriz_pixel[0][0])
         return np.asarray(matriz_pixel)
 
     # função que realiza a adição entre uma imagem A e uma imagem B
@@ -178,7 +177,7 @@ if __name__ == "__main__":
     image2 = "imagens/lenainverted.png"
     #DESCOMENTE UMA DAS 3 FUNÇÕES ABAIXO PARA QUE ELA SEJA EXECUTADA
 
-    #pi.translate(image1)
-    #pi.scale(image1)
-    #pi.rotate(image1)
-    pi.reflect(image1)
+    pi.translate(image1)
+    # pi.scale(image1)
+    # pi.rotate(image1, 90)
+    #pi.reflect(image1)

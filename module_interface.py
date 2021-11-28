@@ -51,7 +51,7 @@ class mainWindow():
         button1.grid(column=0, row=5, padx=10, sticky=N + S + W + E)
         button1.anchor(NW)
 
-        # Sugtração
+        # Subtração
         button2 = Button(window, text="Subtraction", command=lambda: pi.subtraction(pi.image_to_matrix("./imagens/" + path1.get("1.0", "end-1c")),
                                                      pi.image_to_matrix("./imagens/" + path2.get("1.0", "end-1c")),
                                                      window))
