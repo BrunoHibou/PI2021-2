@@ -84,7 +84,12 @@ class mainWindow():
         button5.anchor(NW)
 
         # Rotação
-        button6 = Button(window, text="Rotação", command=lambda: print("div"))
+        button6 = Button(window
+                         , text="Rotação"
+                         , command=lambda: pi.rotate(pi.image_to_matrix("./imagens/" + path1.get("1.0", "end-1c"))
+                                                     ,90
+                                                     ,window))
+
         button6.grid(column=0, row=11, padx=10, sticky=N + S + W + E)
 
         # Escala
